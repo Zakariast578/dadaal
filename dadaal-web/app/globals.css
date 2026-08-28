@@ -1,0 +1,515 @@
+@import "tailwindcss";
+
+@theme {
+  /* ============================================================
+     Brand Typography Hierarchy
+     ============================================================ */
+  --font-heading: var(--font-manrope), sans-serif;
+  --font-sans: var(--font-inter), sans-serif;
+
+  --text-hero: clamp(2.5rem, 6vw, 7rem);
+  --text-hero--line-height: 1.05;
+  --text-hero--letter-spacing: -0.03em;
+
+  --text-section: clamp(2.25rem, 4vw, 4rem);
+  --text-section--line-height: 1.1;
+  --text-section--letter-spacing: -0.02em;
+
+  --text-card: clamp(1.5rem, 2vw, 2rem);
+  --text-card--line-height: 1.25;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+
+  --text-caption: 0.875rem;
+  --text-caption--line-height: 1.4;
+
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.08em;
+
+  /* ============================================================
+     Dadaal Brand Color Tokens
+     ============================================================ */
+  --color-dadaal-blue: #0b5cab;
+  --color-dadaal-blue-light: #2f8ae0;
+  --color-dadaal-blue-dark: #073f77;
+  --color-dadaal-green: #4caf50;
+  --color-dadaal-green-light: #7bd389;
+  --color-dadaal-green-dark: #388e3c;
+  --color-dadaal-navy: #071a2b;
+  --color-dadaal-bg: #f8fafc;
+  --color-dadaal-soft-blue: #eef6ff;
+  --color-dadaal-soft-green: #f0fdf4;
+  --color-dadaal-white: #ffffff;
+  --color-dadaal-muted: #5b6b7c;
+  --color-dadaal-border: #e3eaf1;
+
+  /* Signature brand gradient — matches the blue→green diagonal sweep
+     used across event flyers, hero banners and CTA panels */
+  --gradient-dadaal: linear-gradient(
+    135deg,
+    var(--color-dadaal-blue-dark) 0%,
+    var(--color-dadaal-blue) 40%,
+    var(--color-dadaal-green) 85%,
+    var(--color-dadaal-green-light) 100%
+  );
+  --gradient-dadaal-soft: linear-gradient(
+    135deg,
+    var(--color-dadaal-soft-blue) 0%,
+    var(--color-dadaal-white) 45%,
+    var(--color-dadaal-soft-green) 100%
+  );
+  --gradient-dadaal-radial: radial-gradient(
+    circle at 30% 20%,
+    var(--color-dadaal-blue-light) 0%,
+    transparent 60%
+  );
+  --gradient-blob: linear-gradient(
+    160deg,
+    var(--color-dadaal-blue) 0%,
+    var(--color-dadaal-green) 100%
+  );
+
+  /* ============================================================
+     Surface Radius Tokens
+     ============================================================ */
+  --radius-card: 1.5rem;      /* 24px */
+  --radius-card-lg: 2rem;     /* 32px */
+  --radius-button: 9999px;    /* Full pill */
+  --radius-badge: 0.75rem;    /* 12px */
+  --radius-badge-pill: 9999px;
+
+  /* ============================================================
+     Premium Shadow & Elevation Tokens
+     ============================================================ */
+  --shadow-soft: 0 10px 30px -10px rgba(7, 26, 43, 0.06);
+  --shadow-card: 0 16px 40px -14px rgba(7, 26, 43, 0.10);
+  --shadow-hover: 0 24px 48px -16px rgba(11, 92, 171, 0.18);
+  --shadow-glow-blue: 0 8px 24px -6px rgba(11, 92, 171, 0.35);
+  --shadow-glow-green: 0 8px 24px -6px rgba(76, 175, 80, 0.35);
+  --shadow-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+
+  /* ============================================================
+     Motion Tokens
+     ============================================================ */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+}
+
+/* ================================================================
+   Base Layer
+   ================================================================ */
+@layer base {
+  * {
+    border-color: var(--color-dadaal-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-dadaal-bg);
+    color: var(--color-dadaal-navy);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    color: var(--color-dadaal-navy);
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background-color: var(--color-dadaal-green);
+    color: var(--color-dadaal-white);
+  }
+
+  /* Custom scrollbar — subtle brand touch */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-dadaal-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--color-dadaal-blue), var(--color-dadaal-green));
+    border-radius: 9999px;
+    border: 2px solid var(--color-dadaal-bg);
+  }
+}
+
+/* ================================================================
+   Components Layer
+   ================================================================ */
+@layer components {
+
+  /* ---- Buttons ------------------------------------------------- */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-body);
+    color: var(--color-dadaal-white);
+    background: var(--gradient-dadaal);
+    background-size: 160% 160%;
+    background-position: 0% 50%;
+    padding: 0.85rem 1.75rem;
+    border-radius: var(--radius-button);
+    box-shadow: var(--shadow-glow-blue);
+    transition: background-position var(--duration-slow) var(--ease-premium),
+                transform var(--duration-fast) var(--ease-premium),
+                box-shadow var(--duration-base) var(--ease-premium);
+  }
+  .btn-primary:hover {
+    background-position: 100% 50%;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-body);
+    color: var(--color-dadaal-blue);
+    background: var(--color-dadaal-white);
+    border: 1.5px solid var(--color-dadaal-border);
+    padding: 0.8rem 1.65rem;
+    border-radius: var(--radius-button);
+    box-shadow: var(--shadow-soft);
+    transition: all var(--duration-base) var(--ease-premium);
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-dadaal-blue);
+    color: var(--color-dadaal-blue-dark);
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    font-size: var(--text-caption);
+    color: var(--color-dadaal-muted);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-button);
+    transition: all var(--duration-fast) var(--ease-premium);
+  }
+  .btn-ghost:hover {
+    background: var(--color-dadaal-soft-blue);
+    color: var(--color-dadaal-blue);
+  }
+
+  /* ---- Cards ----------------------------------------------------- */
+  .card-premium {
+    background: var(--color-dadaal-white);
+    border: 1px solid var(--color-dadaal-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 1.75rem;
+    transition: transform var(--duration-base) var(--ease-premium),
+                box-shadow var(--duration-base) var(--ease-premium);
+  }
+  .card-premium:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .card-glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-card-lg);
+    box-shadow: var(--shadow-card), var(--shadow-inset);
+  }
+
+  /* Team / profile card — mirrors the "Congratulations" portrait layout */
+  .card-profile {
+    position: relative;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--color-dadaal-white);
+    border-radius: var(--radius-card-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .card-profile__blob {
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-blob);
+    opacity: 0.12;
+    filter: blur(40px);
+    z-index: 0;
+  }
+  .card-profile__avatar {
+    position: relative;
+    z-index: 1;
+    width: 9rem;
+    height: 9rem;
+    margin: 0 auto 1.25rem;
+    border-radius: 9999px;
+    overflow: hidden;
+    box-shadow: var(--shadow-glow-blue);
+  }
+
+  /* Event / seminar card mirroring the phone-mockup flyer preview */
+  .card-event {
+    background: var(--color-dadaal-white);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-dadaal-border);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: transform var(--duration-base) var(--ease-premium),
+                box-shadow var(--duration-base) var(--ease-premium);
+  }
+  .card-event:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+  .card-event__media {
+    aspect-ratio: 16 / 9;
+    background: var(--gradient-dadaal-soft);
+  }
+  .card-event__body {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  /* ---- Badges / Pills --------------------------------------------- */
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-heading);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    padding: 0.3rem 0.85rem;
+    border-radius: var(--radius-badge-pill);
+  }
+  .badge-approved {
+    background: var(--color-dadaal-soft-green);
+    color: var(--color-dadaal-green-dark);
+  }
+  .badge-info {
+    background: var(--color-dadaal-soft-blue);
+    color: var(--color-dadaal-blue-dark);
+  }
+  .badge-tag {
+    background: var(--color-dadaal-bg);
+    color: var(--color-dadaal-muted);
+    border: 1px solid var(--color-dadaal-border);
+  }
+  .badge-gradient {
+    background: var(--gradient-dadaal);
+    color: var(--color-dadaal-white);
+    box-shadow: var(--shadow-glow-green);
+  }
+
+  /* ---- Eyebrow / Section labels ------------------------------------- */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: var(--text-eyebrow);
+    letter-spacing: var(--text-eyebrow--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--color-dadaal-blue);
+  }
+  .eyebrow::before {
+    content: "";
+    display: block;
+    width: 1.5rem;
+    height: 2px;
+    background: var(--gradient-dadaal);
+    border-radius: 9999px;
+  }
+
+  /* ---- Section framing ("Organized By" / "Our Partners" style) ------ */
+  .panel-framed {
+    position: relative;
+    background: var(--color-dadaal-white);
+    border: 1px solid var(--color-dadaal-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: 1.5rem 2rem;
+  }
+  .panel-framed__label {
+    position: absolute;
+    top: -0.9rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gradient-dadaal);
+    color: var(--color-dadaal-white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-caption);
+    padding: 0.4rem 1.1rem;
+    border-radius: var(--radius-badge);
+    box-shadow: var(--shadow-glow-blue);
+  }
+
+  /* Partner / logo strip */
+  .logo-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .logo-strip > * + * {
+    position: relative;
+  }
+  .logo-strip > * + *::before {
+    content: "";
+    position: absolute;
+    left: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 2rem;
+    background: var(--color-dadaal-border);
+  }
+  .logo-strip img,
+  .logo-strip svg {
+    filter: grayscale(1) opacity(0.6);
+    transition: filter var(--duration-base) var(--ease-premium);
+  }
+  .logo-strip img:hover,
+  .logo-strip svg:hover {
+    filter: grayscale(0) opacity(1);
+  }
+
+  /* ---- Hero / gradient surfaces ------------------------------------- */
+  .surface-gradient {
+    background: var(--gradient-dadaal);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .surface-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-dadaal-radial);
+    z-index: -1;
+  }
+  .surface-gradient-soft {
+    background: var(--gradient-dadaal-soft);
+  }
+
+  /* Decorative blurred blob, echoes the circular shapes behind portraits */
+  .decor-blob {
+    position: absolute;
+    border-radius: 9999px;
+    background: var(--gradient-blob);
+    filter: blur(60px);
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* ---- Text utilities ------------------------------------------------ */
+  .text-gradient {
+    background: var(--gradient-dadaal);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .heading-hero {
+    font-size: var(--text-hero);
+    line-height: var(--text-hero--line-height);
+    letter-spacing: var(--text-hero--letter-spacing);
+    font-family: var(--font-heading);
+    font-weight: 800;
+  }
+
+  .heading-section {
+    font-size: var(--text-section);
+    line-height: var(--text-section--line-height);
+    letter-spacing: var(--text-section--letter-spacing);
+    font-family: var(--font-heading);
+    font-weight: 800;
+  }
+
+  /* ---- Divider with brand gradient ----------------------------------- */
+  .divider-gradient {
+    height: 3px;
+    width: 100%;
+    background: var(--gradient-dadaal);
+    border-radius: 9999px;
+  }
+
+  /* ---- Phone mockup frame (for app-preview sections) ------------------ */
+  .device-frame {
+    position: relative;
+    border-radius: 2.5rem;
+    border: 10px solid var(--color-dadaal-navy);
+    box-shadow: var(--shadow-hover);
+    overflow: hidden;
+    background: var(--color-dadaal-navy);
+  }
+  .device-frame::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 1.25rem;
+    background: var(--color-dadaal-navy);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    z-index: 10;
+  }
+}
+
+/* ================================================================
+   Utilities Layer
+   ================================================================ */
+@layer utilities {
+  .animate-float {
+    animation: dadaal-float 6s var(--ease-premium) infinite;
+  }
+  .animate-fade-up {
+    animation: dadaal-fade-up var(--duration-slow) var(--ease-premium) both;
+  }
+
+  @keyframes dadaal-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes dadaal-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "Navigation": {
+    "about": "About",
+    "programs": "Programs",
+    "events": "Events",
+    "impact": "Impact",
+    "team": "Team",
+    "contact": "Contact"
+  },
+  "Hero": {
+    "title": "Empowering the next generation of leaders.",
+    "subtitle": "We help young people learn, connect, lead, and create positive change.",
+    "cta": "Explore Programs"
+  }
+}
